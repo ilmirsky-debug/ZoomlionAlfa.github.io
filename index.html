@@ -261,7 +261,8 @@
             <p>Email: <a href="mailto:ilmir.sky@yandex.ru.ru" style="color: white;">ilmir.sky@yandex.ru.ru</a></p>
             <p>© 2024 Zoomlion. Все права защищены.</p>
         </div>
-    </footer><script>
+    </footer>
+    <script>
   // Плавная прокрутка при клике на ссылки навигации
   document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -278,6 +279,30 @@
         
         // Обновляем URL без перезагрузки страницы
         history.pushState(null, null, targetId);
+      }
+    });
+  });
+</script>
+     // Подсветка активного раздела при скролле
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+  
+  window.addEventListener('scroll', function() {
+    let current = '';
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      
+      if (pageYOffset >= sectionTop - 150) {
+        current = section.getAttribute('id');
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${current}`) {
+        link.classList.add('active');
       }
     });
   });
