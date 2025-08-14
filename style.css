@@ -236,3 +236,18 @@ footer a {
         grid-template-columns: 1fr;
     }
 }
+nav a.active {
+  color: var(--zoomlion-green) !important;
+  font-weight: bold;
+  position: relative;
+}
+
+nav a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--zoomlion-green);
+}
