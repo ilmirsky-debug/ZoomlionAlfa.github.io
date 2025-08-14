@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --zoomlion-green: #85ec0e; /* Яркий зеленый */
+            --zoomlion-green: #85ec0e;
             --dark-blue: #003366;
             --light-gray: #f5f5f5;
         }
@@ -85,7 +85,7 @@
         .btn {
             display: inline-block;
             background: var(--zoomlion-green);
-            color: #333; /* Темный текст для контраста */
+            color: #333;
             padding: 12px 30px;
             border-radius: 4px;
             text-decoration: none;
@@ -93,6 +93,7 @@
             transition: all 0.3s;
             margin-top: 20px;
             border: 2px solid transparent;
+            cursor: pointer;
         }
         
         .btn:hover {
@@ -105,6 +106,9 @@
             text-align: center;
             margin-bottom: 50px;
             color: var(--dark-blue);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
         
         .products {
@@ -124,6 +128,9 @@
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             transition: transform 0.3s;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
         
         .product-card:hover {
@@ -134,6 +141,12 @@
             width: 100%;
             height: 200px;
             object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .product-img:hover {
+            transform: scale(1.03);
         }
         
         .product-info {
@@ -152,6 +165,79 @@
             padding: 30px 0;
         }
         
+        /* Модальное окно с эффектом затемнения */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0);
+            overflow: auto;
+            transition: background-color 0.4s ease-out;
+        }
+        
+        .modal.active {
+            background-color: rgba(0,0,0,0.9);
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            opacity: 0;
+            transition: all 0.3s ease-out 0.1s;
+        }
+        
+        .modal.active .modal-content {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .modal-img {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.6);
+        }
+        
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
+        }
+        
+        .close:hover {
+            color: var(--zoomlion-green);
+            transform: scale(1.2);
+        }
+        
+        .caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            text-align: center;
+            color: white;
+            padding: 10px 0;
+            font-size: 1.2em;
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
+        }
+        
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -167,6 +253,16 @@
             
             .hero h1 {
                 font-size: 2rem;
+            }
+            
+            .modal-content {
+                max-width: 95%;
+            }
+            
+            .close {
+                top: 10px;
+                right: 20px;
+                font-size: 30px;
             }
         }
     </style>
@@ -202,7 +298,7 @@
             <div class="product-grid">
                 <!-- Вилочные погрузчики -->
                 <div class="product-card">
-                    <img src="https://asm24.su/assets/images/products/222/fd50-1.png" alt="Вилочный погрузчик" class="product-img">
+                    <img src="https://asm24.su/assets/images/products/222/fd50-1.png" alt="Вилочный погрузчик Zoomlion FD50" class="product-img" onclick="openModal(this)">
                     <div class="product-info">
                         <h3>Вилочные погрузчики</h3>
                         <p>Грузоподъемность от 1 до 10 тонн</p>
@@ -212,7 +308,7 @@
                 
                 <!-- Ножничные подъемники -->
                 <div class="product-card">
-                    <img src="https://image.made-in-china.com/2f0j00cCITAsyJemlM/Zs0407DC-4m-Self-Propelled-Electric-Driven-Scissor-Lift.webp" alt="Ножничный подъемник" class="product-img">
+                    <img src="https://image.made-in-china.com/2f0j00cCITAsyJemlM/Zs0407DC-4m-Self-Propelled-Electric-Driven-Scissor-Lift.webp" alt="Ножничный подъемник Zoomlion ZS0407DC" class="product-img" onclick="openModal(this)">
                     <div class="product-info">
                         <h3>Ножничные подъемники</h3>
                         <p>Высота подъема до 12 метров</p>
@@ -222,7 +318,7 @@
                 
                 <!-- Телескопические подъемники -->
                 <div class="product-card">
-                    <img src="https://100kwatt.ru/images/detailed/114/aaaa-1.webp" alt="Телескопический подъемник" class="product-img">
+                    <img src="https://100kwatt.ru/images/detailed/114/aaaa-1.webp" alt="Телескопический подъемник Zoomlion ZT26J" class="product-img" onclick="openModal(this)">
                     <div class="product-info">
                         <h3>Телескопические подъемники</h3>
                         <p>Грузоподъемность до 500 кг</p>
@@ -232,7 +328,7 @@
                 
                 <!-- Коленчатые подъемники -->
                 <div class="product-card">
-                    <img src="https://image.made-in-china.com/2f0j00NMWEVfPLEdhF/Za14j-14m-Self-Propelled-Electric-Articulating-Boom-Lift.jpg" alt="Коленчатый подъемник" class="product-img">
+                    <img src="https://image.made-in-china.com/2f0j00NMWEVfPLEdhF/Za14j-14m-Self-Propelled-Electric-Articulating-Boom-Lift.jpg" alt="Коленчатый подъемник Zoomlion ZA14J" class="product-img" onclick="openModal(this)">
                     <div class="product-info">
                         <h3>Коленчатые подъемники</h3>
                         <p>Рабочая высота до 18 метров</p>
@@ -242,7 +338,7 @@
                 
                 <!-- Телескопические погрузчики -->
                 <div class="product-card">
-                    <img src="https://frankfurt.apollo.olxcdn.com/v1/files/p836vro4vhv13-UZ/image" alt="Телескопический погрузчик" class="product-img">
+                    <img src="https://frankfurt.apollo.olxcdn.com/v1/files/p836vro4vhv13-UZ/image" alt="Телескопический погрузчик Zoomlion ZL50GV" class="product-img" onclick="openModal(this)">
                     <div class="product-info">
                         <h3>Телескопические погрузчики</h3>
                         <p>Грузоподъемность до 3 тонн</p>
@@ -258,74 +354,107 @@
             <h3>Контакты</h3>
             <p>Официальный дилер Zoomlion в России</p>
             <p>Телефон: <a href="tel:+79375844555" style="color: white;">+7 (937) 584-45-55</a></p>
-            <p>Email: <a href="mailto:ilmir.sky@yandex.ru.ru" style="color: white;">ilmir.sky@yandex.ru.ru</a></p>
+            <p>Email: <a href="mailto:info@zoomlion-rus.ru" style="color: white;">info@zoomlion-rus.ru</a></p>
             <p>© 2024 Zoomlion. Все права защищены.</p>
         </div>
     </footer>
+
+    <!-- Модальное окно -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <img id="modalImage" class="modal-img">
+            <div id="caption" class="caption"></div>
+        </div>
+    </div>
+
     <script>
-  // Весь JavaScript в одном месте
-  document.addEventListener('DOMContentLoaded', function() {
-    // 1. Плавная прокрутка
-    document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', smoothScroll);
-    });
-    
-    // 2. Анимации
-    initAnimations();
-    
-    // 3. Отслеживание скролла
-    window.addEventListener('scroll', function() {
-      highlightActiveSection();
-      animateOnScroll();
-    });
-  });
-
-  function smoothScroll(e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      window.scrollTo({
-        top: target.offsetTop - 80,
-        behavior: 'smooth'
-      });
-    }
-  }
-
-  function highlightActiveSection() {
-    const sections = document.querySelectorAll('section[id]');
-    let current = '';
-    
-    sections.forEach(section => {
-      if (window.scrollY >= section.offsetTop - 150) {
-        current = section.getAttribute('id');
-      }
-    });
-    
-    document.querySelectorAll('nav a').forEach(link => {
-      link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
-    });
-  }
-
-  function initAnimations() {
-    const style = document.createElement('style');
-    style.textContent = `
-      .product-card, .section-title {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: opacity 0.6s, transform 0.6s;
-      }
-    `;
-    document.head.appendChild(style);
-  }
-
-  function animateOnScroll() {
-    document.querySelectorAll('.product-card, .section-title').forEach(el => {
-      if (el.getBoundingClientRect().top < window.innerHeight / 1.2) {
-        el.style.opacity = '1';
-        el.style.transform = 'translateY(0)';
-      }
-    });
-  }
-</script>
+        // Модальное окно с анимацией
+        function openModal(img) {
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("modalImage");
+            const captionText = document.getElementById("caption");
+            
+            modal.style.display = "block";
+            modalImg.src = img.src;
+            captionText.innerHTML = img.alt;
+            
+            // Активируем анимацию
+            setTimeout(() => {
+                modal.classList.add("active");
+            }, 10);
+            
+            // Блокировка прокрутки фона
+            document.body.style.overflow = "hidden";
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById("imageModal");
+            
+            // Деактивируем анимацию
+            modal.classList.remove("active");
+            
+            // Ждем завершения анимации перед скрытием
+            setTimeout(() => {
+                modal.style.display = "none";
+            }, 400);
+            
+            // Разблокировка прокрутки фона
+            document.body.style.overflow = "auto";
+        }
+        
+        // Закрытие по клику вне изображения
+        window.onclick = function(event) {
+            const modal = document.getElementById("imageModal");
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+        
+        // Закрытие по клавише ESC
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById("imageModal");
+            if (event.key === "Escape" && modal.style.display === "block") {
+                closeModal();
+            }
+        });
+        
+        // Плавная прокрутка
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Анимация при прокрутке
+        function checkScroll() {
+            const elements = document.querySelectorAll('.product-card, .section-title');
+            elements.forEach(el => {
+                const elementPosition = el.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        
+        // Инициализация анимаций
+        window.addEventListener('DOMContentLoaded', function() {
+            // Проверка при загрузке
+            checkScroll();
+            
+            // Проверка при скролле
+            window.addEventListener('scroll', checkScroll);
+        });
+    </script>
 </body>
 </html>
