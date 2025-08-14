@@ -3,59 +3,261 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zoomlion - Складская техника</title>
+    <title>Zoomlion - Официальный дилер складской техники</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        /* Минимальные стили для быстрого старта */
+        :root {
+            --zoomlion-red: #e30613;
+            --dark-blue: #003366;
+            --light-gray: #f5f5f5;
+        }
+        
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
             line-height: 1.6;
+            color: #333;
         }
+        
         header {
-            background: #fff;
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            height: 50px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-blue);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--zoomlion-red);
+        }
+        
         .hero {
-            background: #2c3e50;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://www.zoomlion.com/uploads/ueditor/image/20220428/1651120124115436.jpg');
+            background-size: cover;
+            background-position: center;
             color: white;
             text-align: center;
-            padding: 80px 20px;
+            padding: 120px 0;
         }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--zoomlion-red);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            background: #c00511;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--dark-blue);
+        }
+        
         .products {
-            padding: 50px 20px;
+            padding: 80px 0;
+            background: var(--light-gray);
         }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .product-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-info h3 {
+            margin-top: 0;
+            color: var(--dark-blue);
+        }
+        
         footer {
-            background: #333;
+            background: var(--dark-blue);
             color: white;
             text-align: center;
-            padding: 20px;
+            padding: 30px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Zoomlion</h1>
+        <div class="container">
+            <div class="header-content">
+                <img src="https://www.zoomlion.com/static/home/images/logo.png" alt="Zoomlion Logo" class="logo">
+                <nav>
+                    <ul>
+                        <li><a href="#products">Продукция</a></li>
+                        <li><a href="#services">Сервис</a></li>
+                        <li><a href="#contacts">Контакты</a></li>
+                    </ul>
+                </nav>
+                <a href="tel:+78001234567" class="btn">+7 (800) 123-45-67</a>
+            </div>
+        </div>
     </header>
 
     <section class="hero">
-        <h2>Профессиональная складская техника</h2>
-        <p>Официальный дилер в России</p>
+        <div class="container">
+            <h1>Профессиональная складская техника Zoomlion</h1>
+            <p>Официальный дилер в России с полным сервисным обслуживанием</p>
+            <a href="#contacts" class="btn">Получить консультацию</a>
+        </div>
     </section>
 
-    <section class="products">
-        <h3>Наша продукция</h3>
-        <ul>
-            <li>Вилочные погрузчики</li>
-            <li>Автокраны</li>
-            <li>Ричстакеры</li>
-        </ul>
+    <section id="products" class="products">
+        <div class="container">
+            <h2 class="section-title">Наша продукция</h2>
+            <div class="product-grid">
+                <!-- Вилочные погрузчики -->
+                <div class="product-card">
+                    <img src="https://www.zoomlion.com/uploads/ueditor/image/20220428/1651120124115436.jpg" alt="Вилочный погрузчик" class="product-img">
+                    <div class="product-info">
+                        <h3>Вилочные погрузчики</h3>
+                        <p>Грузоподъемность от 1 до 10 тонн</p>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+                
+                <!-- Ножничные подъемники -->
+                <div class="product-card">
+                    <img src="https://www.zoomlion.com/uploads/ueditor/image/20220428/1651120124115436.jpg" alt="Ножничный подъемник" class="product-img">
+                    <div class="product-info">
+                        <h3>Ножничные подъемники</h3>
+                        <p>Высота подъема до 12 метров</p>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+                
+                <!-- Телескопические подъемники -->
+                <div class="product-card">
+                    <img src="https://www.zoomlion.com/uploads/ueditor/image/20220428/1651120124115436.jpg" alt="Телескопический подъемник" class="product-img">
+                    <div class="product-info">
+                        <h3>Телескопические подъемники</h3>
+                        <p>Грузоподъемность до 500 кг</p>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+                
+                <!-- Коленчатые подъемники -->
+                <div class="product-card">
+                    <img src="https://www.zoomlion.com/uploads/ueditor/image/20220428/1651120124115436.jpg" alt="Коленчатый подъемник" class="product-img">
+                    <div class="product-info">
+                        <h3>Коленчатые подъемники</h3>
+                        <p>Рабочая высота до 18 метров</p>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+                
+                <!-- Телескопические погрузчики -->
+                <div class="product-card">
+                    <img src="https://www.zoomlion.com/uploads/ueditor/image/20220428/1651120124115436.jpg" alt="Телескопический погрузчик" class="product-img">
+                    <div class="product-info">
+                        <h3>Телескопические погрузчики</h3>
+                        <p>Грузоподъемность до 3 тонн</p>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <footer>
-        <p>© 2024 Zoomlion</p>
-        <p>Телефон: +7 (800) 123-45-67</p>
+    <footer id="contacts">
+        <div class="container">
+            <h3>Контакты</h3>
+            <p>Официальный дилер Zoomlion в России</p>
+            <p>Телефон: <a href="tel:+78001234567" style="color: white;">+7 (800) 123-45-67</a></p>
+            <p>Email: <a href="mailto:info@zoomlion-rus.ru" style="color: white;">info@zoomlion-rus.ru</a></p>
+            <p>© 2024 Zoomlion. Все права защищены.</p>
+        </div>
     </footer>
 </body>
 </html>
