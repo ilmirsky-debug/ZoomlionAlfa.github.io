@@ -261,6 +261,26 @@
             <p>Email: <a href="mailto:ilmir.sky@yandex.ru.ru" style="color: white;">ilmir.sky@yandex.ru.ru</a></p>
             <p>© 2024 Zoomlion. Все права защищены.</p>
         </div>
-    </footer>
+    </footer><script>
+  // Плавная прокрутка при клике на ссылки навигации
+  document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      const targetId = this.getAttribute('href');
+      const targetElement = document.querySelector(targetId);
+      
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - 80, // Учитываем высоту шапки
+          behavior: 'smooth'
+        });
+        
+        // Обновляем URL без перезагрузки страницы
+        history.pushState(null, null, targetId);
+      }
+    });
+  });
+</script>
 </body>
 </html>
